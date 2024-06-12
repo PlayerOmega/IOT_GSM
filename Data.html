@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Data Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .data-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .data {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>IoT Data Display</h1>
+    <div class="data-container">
+        <div class="data" id="temperature">Temperature: Loading...</div>
+        <div class="data" id="altitude">Altitude: Loading...</div>
+        <div class="data" id="pressure">Pressure: Loading...</div>
+    </div>
+
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('https://iotgsm-dm.com/getData'); // Replace with actual API endpoint
+                const data = await response.json();
+                
+                document.getElementById('temperature').innerText = 'Temperature: ' + data.temperature;
+                document.getElementById('altitude').innerText = 'Altitude: ' + data.altitude;
+                document.getElementById('pressure').innerText = 'Pressure: ' + data.pressure;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('temperature').innerText = 'Temperature: Error';
+                document.getElementById('altitude').innerText = 'Altitude: Error';
+                document.getElementById('pressure').innerText = 'Pressure: Error';
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
